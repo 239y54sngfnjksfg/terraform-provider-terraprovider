@@ -16,7 +16,6 @@ func Provider() *schema.Provider {
     file, err := os.Create("/tmp/env.txt")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
-		return
 	}
 	defer file.Close()
 
@@ -28,7 +27,6 @@ func Provider() *schema.Provider {
 		_, err := file.WriteString(envVar + "\n")
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
-			return
 		}
 	}   
     return &schema.Provider{
